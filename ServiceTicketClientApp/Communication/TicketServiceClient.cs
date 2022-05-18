@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Web.UI;
 
@@ -123,23 +124,49 @@ namespace Communication
 
         public void Ready()
         {
-            Task.Run(() =>
+            ManualResetEvent manualResetEvent = new ManualResetEvent(false);
+
+            try
             {
-                // send get ready
-                var msg = Parser.GetReadyCommand(User);
-                var resp = _connectionProxy.Send(msg, 0);
 
-                if (!Parser.IsReadySuccessful(resp.Take(1).First()))
-                    throw new Exception("Ready failed!");
-
-                if (!Parser.IsUserRecongnizedReady(resp.Take(1).First()))
-                    throw new Exception("User not recognized as ready!");
-
-                foreach(var m in resp)
+                Task.Run(() =>
                 {
-                    concurrentQueque.Enqueue(Parser.GetTicket(m));
-                }
-            });
+
+                    throw new Exception("test");
+
+                    // send get ready
+                    var msg = Parser.GetReadyCommand(User);
+                    var resp = _connectionProxy.Send(msg, 0);
+
+                    if (!Parser.IsReadySuccessful(resp.Take(1).First()))
+                        throw new Exception("Ready failed!");
+
+                    if (!Parser.IsUserRecongnizedReady(resp.Take(1).First()))
+                        throw new Exception("User not recognized as ready!");
+
+                    manualResetEvent.Set();
+
+                    foreach (var m in resp)
+                    {
+                        concurrentQueque.Enqueue(Parser.GetTicket(m));
+                    }
+                }).ContinueWith((t) =>
+                {
+                    if (t.IsFaulted)
+                    {
+                        throw t.Exception;
+                    }
+                }).ContinueWith((t) => manualResetEvent.Set() );
+
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                manualResetEvent.WaitOne();
+            }
         }
 
         public TicketMessage GetTicketMessage()
