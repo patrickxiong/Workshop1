@@ -105,7 +105,7 @@ namespace Communication
         {
             // send get ready
             var msg = Parser.GetReadyCommand(user);
-            string resp = _connectionProxy.Send(msg,2);
+            var resp = _connectionProxy.Send(msg,2);
 
 
 
