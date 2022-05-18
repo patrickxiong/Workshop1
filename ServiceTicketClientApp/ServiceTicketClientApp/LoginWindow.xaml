@@ -57,11 +57,11 @@
         </Grid>
 
         <StackPanel Grid.Column="1" Visibility="Hidden">
-            <Button>Login</Button>
         </StackPanel>
 
         <StackPanel Grid.Column="1" Visibility="{Binding LoggedIn}">
             <Button>Ready</Button>
+            <Button Click="Button_Click">Login</Button>
             <Button>Logout</Button>
         </StackPanel>
     </Grid>
