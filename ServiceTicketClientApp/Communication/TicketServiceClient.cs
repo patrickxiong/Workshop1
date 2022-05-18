@@ -67,21 +67,24 @@ namespace Communication
 
         private void ValidateUser(string user, string password, string extension)
         {
-            // need to convert to msg command
-            string msg = $"UA\\AN{user}\\TDdefault";
+            var msg=Parser.GetValidateUserCommand(user);
 
             //string resp = _connectionProxy.Send(msg);
             string resp = _connectionProxy.Send(msg);
 
             // validate the response
+            if (!Parser.UserExists(resp))
+                throw new Exception("User does not exist!");
         }
 
         private void Login(string user, string password, string extension)
         {
-            // need to convert to msg command
-            string msg = $"AL\\AN{user}\\AE{password}\\AD{user}\\CN{extension}\\TDdefault";
-
+            var msg = Parser.GetLoginCommand(user);
+            
             string resp = _connectionProxy.Send(msg);
+
+            if (!Parser.LoginSuccessful(resp))
+                throw new Exception("Login failed!");
         }
 
         
