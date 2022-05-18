@@ -1,0 +1,6 @@
+C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Communication\bin\Debug\Communication.dll
+C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Communication\bin\Debug\Communication.pdb
+C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Communication\obj\Debug\Communication.csproj.AssemblyReference.cache
+C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Communication\obj\Debug\Communication.csproj.CoreCompileInputs.cache
+C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Communication\obj\Debug\Communication.dll
+C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Communication\obj\Debug\Communication.pdb
