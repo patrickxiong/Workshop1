@@ -46,8 +46,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="NetworkConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoteClientProxy.cs" />
+    <Compile Include="TicketServiceClient.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
