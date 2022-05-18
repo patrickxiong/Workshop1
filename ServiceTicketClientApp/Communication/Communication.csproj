@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ITicketServiceClient.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="TicketMessage.cs" />
     <Compile Include="NetworkConfiguration.cs" />
