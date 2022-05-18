@@ -114,7 +114,7 @@ namespace Communication
 
         public void CompleteTransaction()
         {
-            var msg=Parser.GetTransactionCompleteCommand()
+            //var msg=Parser.GetTransactionCompleteCommand()
             // transaction complete
             _connectionProxy.Complete();
         }
