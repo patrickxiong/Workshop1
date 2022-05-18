@@ -40,7 +40,6 @@ namespace Communication
                 IPEndPoint remoteEp = new IPEndPoint(ipAddr, port);
 
                 _client = new TcpClient(server, port);
-                _client.Connect(remoteEp);
 
                 return true;
             }
@@ -67,10 +66,10 @@ namespace Communication
             }
         }
 
-        public string Send(string message, int numberOfResp=1)
+        public IEnumerable<string> Send(string message, int numberOfResp=1)
         {
             message = $"{message}\0";
-            
+
             byte[] byteData = Encoding.ASCII.GetBytes(message);
             string resp;
             _client.ReceiveTimeout = 10000; // 10 seconds
@@ -79,16 +78,35 @@ namespace Communication
             {
                 stream.Write(byteData, 0, byteData.Length);
 
-                byte[] respData = new byte[1024];
-                int size = stream.Read(respData, 0, respData.Length);
+                int offset = 0;
+                List<byte> respBuffer = new List<byte>();
+                while (true)
+                {
+                    byte[] respData = new byte[1024];
+                    int size = stream.Read(respData, offset, respData.Length);
 
-                resp = System.Text.Encoding.ASCII.GetString(respData, 0, size);
+                    if (size > 0)
+                    {
+                        respBuffer.AddRange(respData);
+                        offset += size;
+                    }
+
+                    if (size < BufferSize && numberOfResp > 0)
+                    {
+                        break;
+                    }
+                    
+                }
+                resp = System.Text.Encoding.ASCII.GetString(respBuffer.ToArray(), 0, respBuffer.Count);
+
+                var msgs = SplitResponse(resp);
+                foreach (var msg in msgs)
+                {
+                    yield return msg;
+                }
             }
 
-
-            return resp;
         }
-
 
         public string[] WaitForIncomingData()
         {
@@ -103,6 +121,11 @@ namespace Communication
         public void RequestBreak()
         {
 
+        }
+
+        private string[] SplitResponse(string respData)
+        {
+            return respData.Split('\0');
         }
 
         protected virtual void Dispose(bool disposing)

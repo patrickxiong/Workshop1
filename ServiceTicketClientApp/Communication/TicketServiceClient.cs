@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 
 namespace Communication
 {
@@ -13,8 +14,6 @@ namespace Communication
         private static TicketServiceClient _instance;
 
         private RemoteClientProxy _connectionProxy;
-
-        private ConcurrentQueue<TicketMessage> concurrentQueque = new ConcurrentQueue<TicketMessage>();
 
         private TicketServiceClient()
         {
@@ -63,60 +62,50 @@ namespace Communication
 
         public void Disconnect()
         {
-
+            
         }
 
-
+        
 
         private void ValidateUser(string user, string password, string extension)
         {
-            var msg = Parser.GetValidateUserCommand(user);
+            // need to convert to msg command
+            string reqMsg = Parser.GetValidateUserCommand(user);
+
 
             //string resp = _connectionProxy.Send(msg);
-            string resp = _connectionProxy.Send(msg);
+            var resp = _connectionProxy.Send(reqMsg);
 
             // validate the response
-            if (!Parser.UserExists(resp))
-                throw new Exception("User does not exist!");
+            bool valid = Parser.UserExists(resp.FirstOrDefault());
+            if (!valid)
+            {
+                throw new InvalidCredentialException($"Invalid user {user}");
+            }
+
         }
 
         private void Login(string user, string password, string extension)
         {
-            var msg = Parser.GetLoginCommand(user);
 
-            string resp = _connectionProxy.Send(msg);
+            string reqMsg = Parser.GetLoginCommand(user);
 
-            if (!Parser.LoginSuccessful(resp))
-                throw new Exception("Login failed!");
-        }
+            var resp = _connectionProxy.Send(reqMsg);
 
-        public void Ready(string user)
-        {
-            Task.Run(() =>
+            bool success = Parser.LoginSuccessful(resp.FirstOrDefault());
+            if (!success)
             {
-                // send get ready
-                var msg = Parser.GetReadyCommand(user);
-                string resp = _connectionProxy.Send(msg, 2);
-
-                // get tickets
-                //string[] data = _connectionProxy.WaitForIncomingData();
-            });
-
-
+                throw new InvalidCredentialException($"The user {user} failed to login.");
+            }
         }
 
-        public TicketMessage GetTicketMessage()
-        {
-            TicketMessage msg;
-            while(!concurrentQueque.TryDequeue(out msg));
-            return msg;
-        }
+        
 
-        public void GetTicketsAsync(string user, AsyncCallback ticketReady)
+        public void GetTicketsAsync(string user,AsyncCallback ticketReady)
         {
             // send get ready
             var msg = Parser.GetReadyCommand(user);
-            string resp = _connectionProxy.Send(msg, 2);
+            var resp = _connectionProxy.Send(msg,2);
 
 
 
