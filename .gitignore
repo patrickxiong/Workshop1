@@ -4,3 +4,8 @@
 #Build Results
 bin/
 obj/
+*.p7s
+*.nupkg
+*.png
+*.dll
+*.xml
