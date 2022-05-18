@@ -72,6 +72,7 @@ namespace Communication
             // need to convert to msg command
             string reqMsg = Parser.GetValidateUserCommand(user);
 
+
             //string resp = _connectionProxy.Send(msg);
             var resp = _connectionProxy.Send(reqMsg);
 
@@ -81,12 +82,12 @@ namespace Communication
             {
                 throw new InvalidCredentialException($"Invalid user {user}");
             }
+
         }
 
         private void Login(string user, string password, string extension)
         {
-            // need to convert to msg command
-            //string msg = $"AL\\AN{user}\\AE{password}\\AD{user}\\CN{extension}\\TDdefault";
+
             string reqMsg = Parser.GetLoginCommand(user);
 
             var resp = _connectionProxy.Send(reqMsg);
@@ -100,11 +101,14 @@ namespace Communication
 
         
 
-        public void GetTicketsAsync(AsyncCallback ticketReady)
-        //public void GetTicketsAsync()
-        //public void Ready(Ia)
+        public void GetTicketsAsync(string user,AsyncCallback ticketReady)
         {
             // send get ready
+            var msg = Parser.GetReadyCommand(user);
+            string resp = _connectionProxy.Send(msg,2);
+
+
+
             //_connectionProxy.GetReady();
 
             Task.Run(() =>

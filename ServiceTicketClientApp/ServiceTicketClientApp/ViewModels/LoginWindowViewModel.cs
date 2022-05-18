@@ -4,17 +4,18 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 
 namespace ServiceTicketClientApp.ViewModels
 {
     public class LoginWindowViewModel
     {
-        public bool LoggedIn => true;
-
+        private bool _isLoggedIn;
         private string _password;
         private string _extension;
         private string _campaign;
         private string _userId;
+
         public string UserId
         {
             get
@@ -70,7 +71,18 @@ namespace ServiceTicketClientApp.ViewModels
             }
         }
 
-
+        public bool IsLoggedIn
+        {
+            get
+            {
+                return _isLoggedIn;
+            }
+            set
+            {
+                _isLoggedIn = value;
+                RaisePropertyChanged((nameof(IsLoggedIn)));
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)
