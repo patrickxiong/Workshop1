@@ -1,6 +1,0 @@
-C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Contract\bin\Debug\Contract.dll
-C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Contract\bin\Debug\Contract.pdb
-C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Contract\obj\Debug\Contract.csproj.AssemblyReference.cache
-C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Contract\obj\Debug\Contract.csproj.CoreCompileInputs.cache
-C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Contract\obj\Debug\Contract.dll
-C:\Users\PX107773\OneDrive - Aristocrat Gaming\Documents\Workshop1\ServiceTicketClientApp\Contract\obj\Debug\Contract.pdb
