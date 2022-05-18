@@ -12,7 +12,7 @@ namespace ServiceTicketClientApp.Command
         private readonly Predicate<object> _canExecute;
         private readonly Action<object> _execute;
 
-        public RelayCommand(Predicate<object> canExecute, Action<object> execute)
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
         {
             _canExecute = canExecute;
             _execute = execute;
@@ -26,7 +26,7 @@ namespace ServiceTicketClientApp.Command
 
         public bool CanExecute(object parameter)
         {
-            return _canExecute(parameter);
+            return _canExecute == null || _canExecute(parameter);
         }
 
         public void Execute(object parameter)
