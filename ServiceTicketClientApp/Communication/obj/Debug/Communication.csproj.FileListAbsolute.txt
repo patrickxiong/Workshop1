@@ -1,0 +1,10 @@
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\bin\Debug\Communication.dll
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\bin\Debug\Communication.pdb
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\bin\Debug\log4net.dll
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\bin\Debug\log4net.xml
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\obj\Debug\Communication.csproj.AssemblyReference.cache
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\obj\Debug\Communication.csproj.CoreCompileInputs.cache
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\obj\Debug\Communication.csproj.CopyComplete
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\obj\Debug\Communication.dll
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\obj\Debug\Communication.pdb
+C:\Users\SC106206\Desktop\Workshop1Real\ServiceTicketClientApp\Communication\bin\Debug\Communication.dll.config
