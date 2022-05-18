@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using ServiceTicketClientApp.Command;
 
 namespace ServiceTicketClientApp.ViewModels
 {
@@ -15,14 +16,20 @@ namespace ServiceTicketClientApp.ViewModels
         private string _extension;
         private string _campaign;
         private string _userId;
+        public ICommand LoginCommand { get; }
+        public ICommand LogoutCommand { get; }
+        public ICommand ReadyCommand { get; }
+
+        public LoginWindowViewModel()
+        {
+            LoginCommand = new RelayCommand(e => Login());
+            LogoutCommand= new RelayCommand(e => Logout());
+            ReadyCommand = new RelayCommand(e => Ready());
+        }
 
         public string UserId
         {
-            get
-            {
-                return _userId;
-            }
-
+            get => _userId;
             set
             {
                 _userId = value;
@@ -32,56 +39,57 @@ namespace ServiceTicketClientApp.ViewModels
 
         public string Password
         {
-            get
-            {
-                return _password;
-            }
-
+            get => _password;
             set
             {
                 _password = value;
-                RaisePropertyChanged(Password);
+                RaisePropertyChanged(nameof(Password));
             }
         }
 
         public string Extension
         {
-            get
-            {
-                return _extension;
-            }
-
+            get => _extension;
             set
             {
                 _extension = value;
-                RaisePropertyChanged(Extension);
+                RaisePropertyChanged(nameof(Extension));
             }
 
         }
         public string Campaign
         {
-            get
-            {
-                return _campaign;
-            }
+            get => _campaign;
             set
             {
                 _campaign = value;
-                RaisePropertyChanged(Campaign);
+                RaisePropertyChanged(nameof(Campaign));
             }
         }
 
         public bool IsLoggedIn
         {
-            get
-            {
-                return _isLoggedIn;
-            }
+            get => _isLoggedIn;
             set
             {
                 _isLoggedIn = value;
-                RaisePropertyChanged((nameof(IsLoggedIn)));
+                RaisePropertyChanged(nameof(IsLoggedIn));
             }
+        }
+
+        public void Login()
+        {
+            IsLoggedIn = true;
+        }
+
+        public void Logout()
+        {
+            IsLoggedIn = false;
+        }
+
+        public void Ready()
+        {
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
