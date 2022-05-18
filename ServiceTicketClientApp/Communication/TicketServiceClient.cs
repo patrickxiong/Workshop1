@@ -89,11 +89,14 @@ namespace Communication
 
         
 
-        public void GetTicketsAsync(AsyncCallback ticketReady)
-        //public void GetTicketsAsync()
-        //public void Ready(Ia)
+        public void GetTicketsAsync(string user,AsyncCallback ticketReady)
         {
             // send get ready
+            var msg = Parser.GetReadyCommand(user);
+            string resp = _connectionProxy.Send(msg,2);
+
+
+
             //_connectionProxy.GetReady();
 
             Task.Run(() =>
