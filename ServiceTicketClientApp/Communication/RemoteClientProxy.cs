@@ -69,11 +69,11 @@ namespace Communication
         public IEnumerable<string> Send(string message, int numberOfResp=1)
         {
             message = $"{message}\0";
+            string[] msgs;
 
             byte[] byteData = Encoding.ASCII.GetBytes(message);
-            string resp;
-            _client.ReceiveTimeout = 10000; // 10 seconds
-
+    
+            
             using (var stream = _client.GetStream())
             {
                 stream.Write(byteData, 0, byteData.Length);
@@ -97,15 +97,16 @@ namespace Communication
                     }
                     
                 }
-                resp = System.Text.Encoding.ASCII.GetString(respBuffer.ToArray(), 0, respBuffer.Count);
+                string resp = System.Text.Encoding.ASCII.GetString(respBuffer.ToArray(), 0, respBuffer.Count);
 
-                var msgs = SplitResponse(resp);
-                foreach (var msg in msgs)
-                {
-                    yield return msg;
-                }
+                msgs = SplitResponse(resp);
+                
             }
-
+            foreach (var msg in msgs)
+            {
+                yield return msg;
+            }
+            int i = 0;
         }
 
         public string[] WaitForIncomingData()
