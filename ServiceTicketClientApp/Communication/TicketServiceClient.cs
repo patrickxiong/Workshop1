@@ -112,27 +112,9 @@ namespace Communication
             return msg;
         }
 
-        public void GetTicketsAsync(string user, AsyncCallback ticketReady)
-        {
-            // send get ready
-            var msg = Parser.GetReadyCommand(user);
-            string resp = _connectionProxy.Send(msg, 2);
-
-
-
-            //_connectionProxy.GetReady();
-
-            Task.Run(() =>
-            {
-                // get tickets
-                //string[] data = _connectionProxy.WaitForIncomingData();
-            });
-
-            // ticket callback
-        }
-
         public void CompleteTransaction()
         {
+            var msg=Parser.GetTransactionCompleteCommand()
             // transaction complete
             _connectionProxy.Complete();
         }
