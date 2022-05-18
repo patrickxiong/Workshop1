@@ -70,7 +70,6 @@
       <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
