@@ -12,7 +12,7 @@ namespace Communication
         void Disconnect();
         void Ready();
         TicketMessage GetTicketMessage();
-        void CompleteTransaction();
+        void CompleteTransaction(int OutcomeCode);
         void RequestBreak();
 
     }
