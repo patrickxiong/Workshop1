@@ -20,6 +20,8 @@
         </Style>
         <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Width" Value="160"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" TrueValue="Visible" FalseValue="Hidden"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Hidden" FalseValue="Visible"/>
@@ -46,16 +48,16 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0">User Id</TextBlock>
-            <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
-            <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Password</TextBlock>
-            <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+            <TextBlock Grid.Row="1" Grid.Column="0">Password</TextBlock>
+            <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
 
-            <TextBlock Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Extension</TextBlock>
-            <TextBox Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+            <TextBlock Grid.Row="2" Grid.Column="0">Extension</TextBlock>
+            <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
 
-            <TextBlock Grid.Row="3" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Campaign</TextBlock>
-            <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
+            <TextBlock Grid.Row="3" Grid.Column="0">Campaign</TextBlock>
+            <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
         </Grid>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToHiddenConverter}}">
@@ -64,7 +66,6 @@
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVisConverter}}">
             <Button>Ready</Button>
-            <Button Click="Button_Click">Login</Button>
             <Button>Logout</Button>
         </StackPanel>
     </Grid>

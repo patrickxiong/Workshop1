@@ -79,6 +79,7 @@
       <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWorkTests.cs" />
+    <Compile Include="ViewModels\TicketViewModel.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="LoginWindow.xaml">
