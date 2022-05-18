@@ -11,7 +11,6 @@ namespace Communication
         void Connect(NetworkConfiguration config);
         void Disconnect();
         void Ready();
-        TicketMessage GetTicketMessage();
         void CompleteTransaction(int OutcomeCode);
         void RequestBreak();
 

@@ -14,6 +14,11 @@ namespace Communication
         private Client _connectionProxy;
         private ConcurrentQueue<TicketMessage> concurrentQueque = new ConcurrentQueue<TicketMessage>();
 
+        /// <summary>
+        /// When a message is received from the server this client is connected to.
+        /// </summary>
+        public event EventHandler<MessageReceivedEventArgs> MessageReceived;
+
         public string User { get; set; }
         private ServiceClient()
         {
@@ -41,7 +46,9 @@ namespace Communication
 
         public void CompleteTransaction(int OutcomeCode)
         {
-            throw new NotImplementedException();
+            string reqMsg = Parser.GetTransactionCompleteCommand(User, OutcomeCode);
+
+            _connectionProxy.SendMessage(reqMsg);
         }
 
         public void Connect(NetworkConfiguration config)
@@ -72,10 +79,7 @@ namespace Communication
 
         private void _connectionProxy_MessageReceived(object sender, MessageReceivedEventArgs e)
         {
-            var t = Parser.GetTicket(e.Message);
-            if(t != null)
-                concurrentQueque.Enqueue(t);
-
+            MessageReceived?.Invoke(this, e);
         }
 
         private void ValidateUser(string user, string password, string extension)
@@ -91,14 +95,6 @@ namespace Communication
         public void Disconnect()
         {
             _connectionProxy?.Disconnect();
-        }
-
-        public TicketMessage GetTicketMessage()
-        {
-            TicketMessage msg;
-
-            while (!concurrentQueque.TryDequeue(out msg)) ;
-            return msg;
         }
 
         public void Ready()
