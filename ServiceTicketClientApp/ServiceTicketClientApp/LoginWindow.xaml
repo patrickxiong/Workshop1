@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ServiceTicketClientApp.ViewModels"
-        xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters"
+        xmlns:converters="clr-namespace:ServiceTicketClientApp.Converters"
         mc:Ignorable="d"
         Style="{StaticResource StyledWindow}"
         Title="Login" Height="450" Width="800">
@@ -12,15 +12,17 @@
         <Style TargetType="TextBlock">
             <Setter Property="Width" Value="100"/>
             <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
         </Style>
         <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
-            <Setter Property="HorizontalAlignment" Value="Right"/>
-            <Setter Property="Margin" Value="0 20 0 0"/>
+            <Setter Property="Width" Value="150"/>
+            <Setter Property="Margin" Value="20, 40"/>
         </Style>
         <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Width" Value="160"/>
         </Style>
-        <converters:BoolToVisibilityConverter x:Key="sdafd"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" TrueValue="Visible" FalseValue="Hidden"/>
+        <converters:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Hidden" FalseValue="Visible"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:LoginWindowViewModel/>
@@ -43,7 +45,7 @@
                 <ColumnDefinition></ColumnDefinition>
             </Grid.ColumnDefinitions>
 
-            <TextBlock Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">User Id</TextBlock>
+            <TextBlock Grid.Row="0" Grid.Column="0">User Id</TextBlock>
             <TextBox Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
 
             <TextBlock Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">Password</TextBlock>
@@ -56,11 +58,11 @@
             <TextBox Grid.Row="3" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBox>
         </Grid>
 
-        <StackPanel Grid.Column="1" Visibility="Hidden">
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToHiddenConverter}}">
             <Button>Login</Button>
         </StackPanel>
 
-        <StackPanel Grid.Column="1" Visibility="{Binding LoggedIn}">
+        <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVisConverter}}">
             <Button>Ready</Button>
             <Button>Logout</Button>
         </StackPanel>
