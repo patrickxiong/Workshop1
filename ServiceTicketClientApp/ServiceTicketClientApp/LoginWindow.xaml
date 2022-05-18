@@ -27,9 +27,7 @@
         <converters:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Hidden" FalseValue="Visible"/>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </Window.Resources>
-    <Window.DataContext>
-        <vm:LoginWindowViewModel/>
-    </Window.DataContext>
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
@@ -86,7 +84,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVisConverter}}">
-            <Button Click="Button_Click">Ready</Button>
+            <Button Command="{Binding ReadyCommand}">Ready</Button>
             <Button Command="{Binding LogoutCommand}">Logout</Button>
         </StackPanel>
     </Grid>

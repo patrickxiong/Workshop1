@@ -101,6 +101,10 @@ namespace ServiceTicketClientApp.ViewModels
             _serviceClient.NewTicketEventHandler += eventArgs =>
             {
                 TicketMessage newTicket = eventArgs.Ticket;
+                Type = newTicket.TicketType;
+                TicketId = newTicket.TicketId;
+                UserId = newTicket.UserId;
+                Campaign = newTicket.CampaignName;
             };
             _serviceClient.TicketServiceBreakEventHandler += eventArgs =>
             {

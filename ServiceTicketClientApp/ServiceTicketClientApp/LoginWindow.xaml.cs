@@ -11,15 +11,17 @@ namespace ServiceTicketClientApp
         public LoginWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new LoginWindowViewModel(this);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
-            var dd = new MainWindow();
-            dd.LoginWindowPage = this;
-            dd.DataContext = new MainWindowViewModel();
-            dd.ShowDialog();
+            //this.Hide();
+            //var dd = new MainWindow();
+            //dd.LoginWindowPage = this;
+            //dd.DataContext = new MainWindowViewModel();
+            //dd.ShowDialog();
         }
     }
 }

@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using Communication;
 using ServiceTicketClientApp.Command;
@@ -12,18 +13,22 @@ namespace ServiceTicketClientApp.ViewModels
 {
     public class LoginWindowViewModel : INotifyPropertyChanged
     {
-        private ITicketServiceClient _serviceClient;
+        private readonly ITicketServiceClient _serviceClient;
         private bool _isLoggedIn;
         private string _password;
         private string _extension;
         private string _campaign;
         private string _userId;
+
+        private Window _loginWindow;
         public ICommand LoginCommand { get; }
         public ICommand LogoutCommand { get; }
         public ICommand ReadyCommand { get; }
 
-        public LoginWindowViewModel()
+        public LoginWindowViewModel(Window loginWindow)
         {
+            _loginWindow = loginWindow;
+
             //_serviceClient = new FakeTicketServiceClient();
             _serviceClient = TicketServiceClient.Instance;
             LoginCommand = new RelayCommand(e => Login());
@@ -113,7 +118,16 @@ namespace ServiceTicketClientApp.ViewModels
         {
             try
             {
+                _loginWindow.Hide();
+                var dd = new MainWindow()
+                {
+                    LoginWindowPage = _loginWindow as LoginWindow,
+                    DataContext = new MainWindowViewModel()
+                };
+                
                 _serviceClient.Ready();
+
+                dd.ShowDialog();
             }
             catch (Exception e)
             {
