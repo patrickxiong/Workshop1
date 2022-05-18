@@ -132,15 +132,14 @@ namespace Communication
             var resp = _connectionProxy.Send(msg);
             if (!Parser.TransactionCompleted(resp.First()))
                 throw new Exception("CompleteTransaction failed!");
-
-            // transaction complete
-            _connectionProxy.Complete();
         }
 
         public void RequestBreak()
         {
-            // request a break from server
-            _connectionProxy.RequestBreak();
+            var msg = Parser.GetBreakRequestCommand(User);
+            var resp = _connectionProxy.Send(msg);
+            if (!Parser.BreakGranted(resp.First()))
+                throw new Exception("RequestBreak failed!");
         }
 
         public void Ready()
@@ -161,6 +160,7 @@ namespace Communication
         public TicketMessage GetTicketMessage()
         {
             TicketMessage msg;
+
             while (!concurrentQueque.TryDequeue(out msg)) ;
             return msg;
         }
