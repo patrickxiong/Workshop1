@@ -1,0 +1,2 @@
+2022-05-18 11:54:50,287 [1] DEBUG Communication.Class1 HI from Communivcation
+2022-05-18 11:54:50,302 [1] DEBUG Model.Ticket HI
