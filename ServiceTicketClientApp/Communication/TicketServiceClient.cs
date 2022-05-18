@@ -126,8 +126,9 @@ namespace Communication
             // ticket callback
         }
 
-        public void CompleteTransaction()
+        public void CompleteTransaction(int OutcomeCode)
         {
+            var msg = Parser.GetTransactionCompleteCommand(User, OutcomeCode);
             // transaction complete
             _connectionProxy.Complete();
         }
