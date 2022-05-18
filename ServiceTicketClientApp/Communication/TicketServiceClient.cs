@@ -58,11 +58,19 @@ namespace Communication
             Login(config.User, config.Password, config.Extension);
         }
 
+        public void Disconnect()
+        {
+            
+        }
+
+        
+
         private void ValidateUser(string user, string password, string extension)
         {
             // need to convert to msg command
             string msg = $"UA\\AN{user}\\TDdefault";
 
+            //string resp = _connectionProxy.Send(msg);
             string resp = _connectionProxy.Send(msg);
 
             // validate the response
@@ -74,6 +82,36 @@ namespace Communication
             string msg = $"AL\\AN{user}\\AE{password}\\AD{user}\\CN{extension}\\TDdefault";
 
             string resp = _connectionProxy.Send(msg);
+        }
+
+        
+
+        public void GetTicketsAsync(AsyncCallback ticketReady)
+        //public void GetTicketsAsync()
+        //public void Ready(Ia)
+        {
+            // send get ready
+            //_connectionProxy.GetReady();
+
+            Task.Run(() =>
+            {
+                // get tickets
+                //string[] data = _connectionProxy.WaitForIncomingData();
+            });
+
+            // ticket callback
+        }
+
+        public void CompleteTransaction()
+        {
+            // transaction complete
+            _connectionProxy.Complete();
+        }
+
+        public void RequestBreak()
+        {
+            // request a break from server
+            _connectionProxy.RequestBreak();
         }
     }
 }

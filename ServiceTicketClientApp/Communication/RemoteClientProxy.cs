@@ -12,7 +12,7 @@ namespace Communication
     {
         private const int PollTime = 1000; // 1 second
         private const int BufferSize = 1024;
-        private Socket _client;
+        private TcpClient _client;
         private bool _disposedValue;
 
         public bool IsConnected
@@ -24,9 +24,9 @@ namespace Communication
                     return false;
                 }
 
-                bool pollSuccess = _client.Poll(PollTime, SelectMode.SelectRead);
+                //bool pollSuccess = _client..Poll(PollTime, SelectMode.SelectRead);
 
-                return pollSuccess;
+                return _client.Connected;
             }
         }
 
@@ -39,9 +39,7 @@ namespace Communication
                 IPAddress ipAddr = IPAddress.Parse(server);
                 IPEndPoint remoteEp = new IPEndPoint(ipAddr, port);
 
-
-                _client = new Socket(ipAddr.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
+                _client = new TcpClient(server, port);
                 _client.Connect(remoteEp);
 
                 return true;
@@ -58,7 +56,7 @@ namespace Communication
             {
                 try
                 {
-                    _client.Shutdown(SocketShutdown.Both);
+                    
                     _client.Close();
                     _client = null;
                 }
@@ -69,66 +67,43 @@ namespace Communication
             }
         }
 
-        public string Send(string message, bool withReply = true)
+        public string Send(string message, int numberOfResp=1)
         {
-            if (string.IsNullOrEmpty(message))
+            message = $"{message}\0";
+            
+            byte[] byteData = Encoding.ASCII.GetBytes(message);
+            string resp;
+            _client.ReceiveTimeout = 10000; // 10 seconds
+
+            using (var stream = _client.GetStream())
             {
-                return string.Empty;
+                stream.Write(byteData, 0, byteData.Length);
+
+                byte[] respData = new byte[1024];
+                int size = stream.Read(respData, 0, respData.Length);
+
+                resp = System.Text.Encoding.ASCII.GetString(respData, 0, size);
             }
 
-            try
-            {
-                List<byte> buffer = new List<byte>();
-                byte[] byteData = Encoding.ASCII.GetBytes(message);
 
-                int offset = 0;
-                while (true)
-                {
-                    int bytesSent = _client.Send(byteData, offset, BufferSize, SocketFlags.None);
-                    offset += bytesSent;
-                    if (bytesSent < BufferSize || offset >= byteData.Length)
-                    {
-                        break;
-                    }
-                }
-
-                //int bytesSent = _client.Send(byteData);
-
-                if (withReply)
-                {
-                    offset = 0;
-
-                    while (true)
-                    {
-                        byte[] receiveBuffer = new byte[BufferSize];
-                        int size = _client.Receive(receiveBuffer, offset, BufferSize, SocketFlags.None);
-                        if (size > 0)
-                        {
-                            buffer.AddRange(receiveBuffer);
-                            offset += size;
-                        }
-
-                        if (size < BufferSize)
-                        {
-                            break;
-                        }
-                    }
-                }
-
-                string response = string.Empty;
-                if (buffer.Count > 0)
-                {
-                    response = Encoding.ASCII.GetString(buffer.ToArray(), 0, buffer.Count);
-                }
-
-                return response;
-            }
-            catch (Exception e)
-            {
-                throw;
-            }
+            return resp;
         }
 
+
+        public string[] WaitForIncomingData()
+        {
+            return new string[3];
+        }
+
+        public void Complete()
+        {
+
+        }
+
+        public void RequestBreak()
+        {
+
+        }
 
         protected virtual void Dispose(bool disposing)
         {
