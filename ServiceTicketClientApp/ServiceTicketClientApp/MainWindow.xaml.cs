@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using Contract.Tests;
+using Model;
+using ServiceTicketClientApp.ViewModels;
 
 namespace ServiceTicketClientApp
 {
@@ -20,9 +12,27 @@ namespace ServiceTicketClientApp
     /// </summary>
     public partial class MainWindow : Window
     {
+        private UnitOfWorkTests2 UnitOfWorkTests = new UnitOfWorkTests2();
+
         public MainWindow()
         {
             InitializeComponent();
+            this.Loaded += this.MainWindow_Loaded;
+        }
+
+        public List<TicketTypes> TicketTypes { get; set; }
+
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            TicketTypes = UnitOfWorkTests.GetTicketType().ToList();
+
+            var ticket = UnitOfWorkTests.GetTicketByID();
+            this.DataContext = new TicketViewModel
+            {
+                TicketTypeCode = ticket.TicketTypeCode,
+                Ticket_ID = ticket.Ticket_ID,
+                TicketType = TicketTypes.FirstOrDefault(t=>t.TicketTypeCode == ticket.TicketTypeCode)
+            };
         }
     }
 }
