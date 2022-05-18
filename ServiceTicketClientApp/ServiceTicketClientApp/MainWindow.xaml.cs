@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using ServiceTicketClientApp.ViewModels;
 
 
 namespace ServiceTicketClientApp
@@ -9,6 +10,7 @@ namespace ServiceTicketClientApp
     public partial class MainWindow : Window
     {
         //private UnitOfWorkTests2 UnitOfWorkTests = new UnitOfWorkTests2();
+        public LoginWindow LoginWindowPage;
 
         public MainWindow()
         {
@@ -30,5 +32,10 @@ namespace ServiceTicketClientApp
         //        TicketType = TicketTypes.FirstOrDefault(t=>t.TicketTypeCode == ticket.TicketTypeCode)
         //    };
         //}
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            LoginWindowPage?.Show();
+        }
     }
 }

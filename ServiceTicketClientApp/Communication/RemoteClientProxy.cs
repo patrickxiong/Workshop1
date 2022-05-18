@@ -24,8 +24,6 @@ namespace Communication
                     return false;
                 }
 
-                //bool pollSuccess = _client..Poll(PollTime, SelectMode.SelectRead);
-
                 return _client.Connected;
             }
         }
@@ -66,62 +64,83 @@ namespace Communication
             }
         }
 
-        public IEnumerable<string> Send(string message, int numberOfResp=1)
+        public string Send(string message)
+        {
+            int offset = 0;
+            List<byte> respBuffer = new List<byte>();
+
+            // send the request
+            SendAsync(message);
+
+            var stream = _client.GetStream();
+            while (true)
+            {
+                byte[] respData = new byte[1024];
+                int size = stream.Read(respData, offset, respData.Length);
+
+                if (size > 0)
+                {
+                    respBuffer.AddRange(respData);
+                    offset += size;
+                }
+
+                if (size < BufferSize)
+                {
+                    string resp = System.Text.Encoding.ASCII.GetString(respBuffer.ToArray(), 0, respBuffer.Count);
+
+                    return resp;
+                }
+
+            }
+        }
+
+        public void SendAsync(string message)
         {
             message = $"{message}\0";
-            string[] msgs;
-
             byte[] byteData = Encoding.ASCII.GetBytes(message);
-    
-            
-            using (var stream = _client.GetStream())
-            {
-                stream.Write(byteData, 0, byteData.Length);
 
-                int offset = 0;
-                List<byte> respBuffer = new List<byte>();
-                while (true)
+            var stream = _client.GetStream();
+
+            stream.Write(byteData, 0, byteData.Length);
+        }
+
+
+
+        public IEnumerable<string> ReadAsync()
+        {
+            var stream = _client.GetStream();
+
+            int offset = 0;
+            List<byte> respBuffer = new List<byte>();
+            string[] msgs;
+            while (true)
+            {
+                byte[] respData = new byte[1024];
+                int size = stream.Read(respData, offset, respData.Length);
+
+                if (size > 0)
                 {
-                    byte[] respData = new byte[1024];
-                    int size = stream.Read(respData, offset, respData.Length);
-
-                    if (size > 0)
-                    {
-                        respBuffer.AddRange(respData);
-                        offset += size;
-                    }
-
-                    if (size < BufferSize && numberOfResp > 0)
-                    {
-                        break;
-                    }
-                    
+                    respBuffer.AddRange(respData);
+                    offset += size;
                 }
-                string resp = System.Text.Encoding.ASCII.GetString(respBuffer.ToArray(), 0, respBuffer.Count);
 
-                msgs = SplitResponse(resp);
-                
+                if (size < BufferSize)
+                {
+                    string resp = System.Text.Encoding.ASCII.GetString(respBuffer.ToArray(), 0, respBuffer.Count);
+
+                    msgs = SplitResponse(resp);
+
+
+                    msgs = msgs.Where(s => !string.IsNullOrEmpty(s)).ToArray();
+                    foreach (var msg in msgs)
+                    {
+                        yield return msg;
+                    }
+
+                    break;
+                }
+
             }
-            foreach (var msg in msgs)
-            {
-                yield return msg;
-            }
-            int i = 0;
-        }
-
-        public string[] WaitForIncomingData()
-        {
-            return new string[3];
-        }
-
-        public void Complete()
-        {
-
-        }
-
-        public void RequestBreak()
-        {
-
         }
 
         private string[] SplitResponse(string respData)

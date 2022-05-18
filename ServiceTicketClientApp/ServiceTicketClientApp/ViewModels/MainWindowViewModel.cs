@@ -3,12 +3,13 @@ using ServiceTicketClientApp.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTicketClientApp.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
 
         private ITicketServiceClient _serviceClient;
@@ -97,17 +98,33 @@ namespace ServiceTicketClientApp.ViewModels
         public MainWindowViewModel()
         {
             _serviceClient = TicketServiceClient.Instance;
-            RequestBreak = new RelayCommand(command => _serviceClient.RequestBreak());
-            RequestNext = new RelayCommand(command => SetMessage());
+            _serviceClient.NewTicketEventHandler += eventArgs =>
+            {
+                TicketMessage newTicket = eventArgs.Ticket;
+            };
+            _serviceClient.TicketServiceBreakEventHandler += eventArgs =>
+            {
+                //TODO
+                _serviceClient.Disconnect();
+            };
+            _serviceClient.TicketServiceTransactionCompleteEventHandler += eventArgs =>
+            {
+                //
+                _serviceClient.Disconnect();
+            };
+            RequestBreak = new RelayCommand(async command => _serviceClient.RequestBreak());
+            RequestNext = new RelayCommand(async command => await SetMessage());
         }
 
-        public void SetMessage()
+        public async Task SetMessage()
         { 
-            var message = TicketServiceClient.Instance.GetTicketMessage();
-            Type = message.TicketType;
-            TicketId = message.TicketId;
-            UserId = message.UserId;
-            Campaign = message.CampaignName;
+            _serviceClient.Ready();
+
+            //var message = TicketServiceClient.Instance.GetTicketMessage();
+            //Type = message.TicketType;
+            //TicketId = message.TicketId;
+            //UserId = message.UserId;
+            //Campaign = message.CampaignName;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

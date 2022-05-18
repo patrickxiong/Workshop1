@@ -17,6 +17,11 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="0 20 0 0"/>
         </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
     </Window.Resources>
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -49,7 +54,7 @@
                             </VisualBrush.Visual>
                         </VisualBrush>
                     </Border.BorderBrush>
-                    <Button Width="120" Command="{Binding RequestBreak}">Request Break</Button>
+                    <Button Width="120" Click="Button_Click" Command="{Binding RequestBreak}">Request Break</Button>
                 </Border>
             </StackPanel>
         </GroupBox>

@@ -8,7 +8,11 @@ namespace Communication
 {
     public class FakeTicketServiceClient : ITicketServiceClient
     {
-        public void CompleteTransaction(int OutcomeCode)
+        public event NewTicketEvent NewTicketEventHandler;
+        public event TicketServiceBreakEvent TicketServiceBreakEventHandler;
+        public event TicketServiceTransactionCompleteEvent TicketServiceTransactionCompleteEventHandler;
+
+        public void CompleteTransaction(int outcomeCode)
         {
             
         }

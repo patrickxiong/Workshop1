@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Communication;
 using ServiceTicketClientApp.Command;
 
 namespace ServiceTicketClientApp.ViewModels
 {
-    public class LoginWindowViewModel
+    public class LoginWindowViewModel : INotifyPropertyChanged
     {
+        private ITicketServiceClient _serviceClient;
         private bool _isLoggedIn;
         private string _password;
         private string _extension;
@@ -22,6 +24,8 @@ namespace ServiceTicketClientApp.ViewModels
 
         public LoginWindowViewModel()
         {
+            //_serviceClient = new FakeTicketServiceClient();
+            _serviceClient = TicketServiceClient.Instance;
             LoginCommand = new RelayCommand(e => Login());
             LogoutCommand= new RelayCommand(e => Logout());
             ReadyCommand = new RelayCommand(e => Ready());
@@ -79,17 +83,43 @@ namespace ServiceTicketClientApp.ViewModels
 
         public void Login()
         {
-            IsLoggedIn = true;
+            try
+            {
+                _serviceClient.Connect(
+                    new NetworkConfiguration()
+                    {
+                        Server = "172.25.12.79",
+                        Port = 6502,
+                        User = UserId,
+                        Password = Password,
+                        Extension = Extension
+                    });
+                IsLoggedIn = true;
+            }
+            catch (Exception e)
+            {
+                // logging
+            }
+            
         }
 
         public void Logout()
         {
+            _serviceClient.Disconnect();
             IsLoggedIn = false;
         }
 
         public void Ready()
         {
-
+            try
+            {
+                _serviceClient.Ready();
+            }
+            catch (Exception e)
+            {
+                //logging
+            }
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
