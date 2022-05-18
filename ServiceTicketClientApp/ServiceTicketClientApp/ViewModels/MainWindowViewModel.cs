@@ -1,5 +1,6 @@
 ﻿using ServiceTicketClientApp.Command;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -13,8 +14,28 @@ namespace ServiceTicketClientApp.ViewModels
         private string _type;
         private string _name;
         private string _email;
+        private string _selectedOutcome;
+        private List<string> _outcomeSource = new List<string> { "1", "2", "3" };
         public ICommand RequestBreak { get; }
         public ICommand RequestNext { get; }
+
+        public string SelectedOutcome { 
+            get
+            {
+                return _selectedOutcome;
+            }
+            set
+            {
+                _selectedOutcome = value;
+            }
+        }
+        public List<string> OutcomeSource
+        {
+            get
+            {
+                return _outcomeSource;
+            }
+        }
         // Outcome as an enum;
 
         public string Campaign

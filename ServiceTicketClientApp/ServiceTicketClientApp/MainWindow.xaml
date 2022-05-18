@@ -77,8 +77,8 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock >Outcome</TextBlock>
-                    <ComboBox ItemsSource="{Binding LayoutTypes}" 
-                            SelectedItem="{Binding SelectedLayoutType}" />
+                    <ComboBox ItemsSource="{Binding OutcomeSource}" 
+                            SelectedItem="{Binding SelectedOutcome}" />
 
                 </StackPanel>
                 <Border

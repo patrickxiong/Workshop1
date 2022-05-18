@@ -8,9 +8,9 @@ namespace ServiceTicketClientApp.Command
         Action _execute;
         public event EventHandler CanExecuteChanged;
 
-        public NextCommand(Action breakFunction)
+        public NextCommand(Action nextFunction)
         {
-            _execute = breakFunction;
+            _execute = nextFunction;
         }
         public bool CanExecute(object parameter)
         {
