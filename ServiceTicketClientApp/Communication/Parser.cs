@@ -63,7 +63,7 @@ namespace Communication
 
         public static string GetLoginCommand(string user)
         {
-            return $"AL\\AN{user}\\AE{AENumber}\\AD{user}\\CNTickets\\TDdefault";
+            return $"AL\\AN{user}\\CNTickets\\AD{user}\\AE{AENumber}\\NU";
         }
 
         public static bool LoginSuccessful(string message)
