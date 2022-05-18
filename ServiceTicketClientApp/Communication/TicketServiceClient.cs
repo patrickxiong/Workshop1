@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.UI;
 
 namespace Communication
 {
@@ -68,20 +70,32 @@ namespace Communication
         private void ValidateUser(string user, string password, string extension)
         {
             // need to convert to msg command
-            string msg = $"UA\\AN{user}\\TDdefault";
+            string reqMsg = Parser.GetValidateUserCommand(user);
 
             //string resp = _connectionProxy.Send(msg);
-            string resp = _connectionProxy.Send(msg);
+            var resp = _connectionProxy.Send(reqMsg);
 
             // validate the response
+            bool valid = Parser.UserExists(resp.FirstOrDefault());
+            if (!valid)
+            {
+                throw new InvalidCredentialException($"Invalid user {user}");
+            }
         }
 
         private void Login(string user, string password, string extension)
         {
             // need to convert to msg command
-            string msg = $"AL\\AN{user}\\AE{password}\\AD{user}\\CN{extension}\\TDdefault";
+            //string msg = $"AL\\AN{user}\\AE{password}\\AD{user}\\CN{extension}\\TDdefault";
+            string reqMsg = Parser.GetLoginCommand(user);
 
-            string resp = _connectionProxy.Send(msg);
+            var resp = _connectionProxy.Send(reqMsg);
+
+            bool success = Parser.LoginSuccessful(resp.FirstOrDefault());
+            if (!success)
+            {
+                throw new InvalidCredentialException($"The user {user} failed to login.");
+            }
         }
 
         
