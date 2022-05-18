@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using Contract.Tests;
+
 
 namespace ServiceTicketClientApp
 {
@@ -8,18 +8,27 @@ namespace ServiceTicketClientApp
     /// </summary>
     public partial class MainWindow : Window
     {
-        private UnitOfWorkTests2 UnitOfWorkTests = new UnitOfWorkTests2();
+        //private UnitOfWorkTests2 UnitOfWorkTests = new UnitOfWorkTests2();
 
         public MainWindow()
         {
             InitializeComponent();
-            this.Loaded += this.MainWindow_Loaded;
+            //this.Loaded += this.MainWindow_Loaded;
         }
 
-        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            var ticket = UnitOfWorkTests.GetTicketByID();
-            this.DataContext = ticket;
-        }
+        //public List<TicketTypes> TicketTypes { get; set; }
+
+        //private void MainWindow_Loaded(object sender, RoutedEventArgs e)
+        //{
+        //    TicketTypes = UnitOfWorkTests.GetTicketType().ToList();
+
+        //    var ticket = UnitOfWorkTests.GetTicketByID();
+        //    this.DataContext = new TicketViewModel
+        //    {
+        //        TicketTypeCode = ticket.TicketTypeCode,
+        //        Ticket_ID = ticket.Ticket_ID,
+        //        TicketType = TicketTypes.FirstOrDefault(t=>t.TicketTypeCode == ticket.TicketTypeCode)
+        //    };
+        //}
     }
 }
