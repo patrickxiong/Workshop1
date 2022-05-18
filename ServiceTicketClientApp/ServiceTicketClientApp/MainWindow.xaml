@@ -17,6 +17,9 @@
             <Setter Property="HorizontalAlignment" Value="Right"/>
             <Setter Property="Margin" Value="0 20 0 0"/>
         </Style>
+        <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
+            <Setter Property="Width" Value="160"/>
+        </Style>
     </Window.Resources>
     <Window.DataContext>
         <vm:MainWindowViewModel/>
@@ -57,12 +60,12 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Ticket Id</TextBlock>
-                    <TextBox TabIndex="0" Text="{Binding Path=TicketId, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <TextBox TabIndex="0" Text="{Binding Ticket_ID}"></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Type</TextBlock>
-                    <TextBox Text="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
-                    <TextBlock Margin="10 0 0 0 ">Type Description</TextBlock>
+                    <TextBox Text="{Binding TicketType.TicketTypeCode}"/>
+                    <TextBlock TextWrapping="Wrap" Width="200" Margin="10 0 0 0 " Text="{Binding TicketType.TicketTypeDesc}"></TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Name</TextBlock>
