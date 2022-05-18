@@ -11,7 +11,7 @@
     class BaseRepository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         internal TicketContext context;
-        internal DbSet<TEntity> dbSet;
+        public DbSet<TEntity> dbSet;
 
         public BaseRepository(TicketContext context)
         {
