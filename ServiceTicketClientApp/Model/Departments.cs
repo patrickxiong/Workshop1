@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace Model
 {
-    public class Ticket
+    public  class Departments
     {
+        public int Department_ID { get; set; }
+        public string Departmnet_Name { get; set; } 
     }
 }
