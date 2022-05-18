@@ -1,13 +1,17 @@
-﻿using ServiceTicketClientApp.Command;
+﻿using Communication;
+using ServiceTicketClientApp.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTicketClientApp.ViewModels
 {
     public class MainWindowViewModel
     {
+
+        private ITicketServiceClient _serviceClient;
         private string _campaign;
         private string _userId;
         private string _ticketId;
@@ -17,7 +21,6 @@ namespace ServiceTicketClientApp.ViewModels
         private string _selectedOutcome;
         private List<string> _outcomeSource = new List<string> { "1", "2", "3" };
         public ICommand RequestBreak { get; }
-        public ICommand RequestNext { get; }
 
         public string SelectedOutcome { 
             get
@@ -97,10 +100,19 @@ namespace ServiceTicketClientApp.ViewModels
         public MainWindowViewModel()
         {
             Action h = Hello;
-            RequestBreak = new BreakCommand(h);
-            RequestNext = new NextCommand(h);
+            _serviceClient = (ITicketServiceClient)TicketServiceClient.Instance;
+            RequestBreak = new BreakCommand(_serviceClient.RequestBreak);
+            TicketMessage message = new TicketMessage();
         }
 
+        public void RequestNext(object sender, RoutedEventArgs e)
+        { 
+            var message = TicketServiceClient.Instance.GetTicketMessage();
+            Type = message.TicketType;
+            TicketId = message.TicketId;
+            UserId = message.UserId;
+            Campaign = message.CampaignName;
+        }   
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)
         {

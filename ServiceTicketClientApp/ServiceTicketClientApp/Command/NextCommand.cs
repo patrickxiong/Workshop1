@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Communication;
+using System;
 using System.Windows.Input;
 
 namespace ServiceTicketClientApp.Command
 {
     public class NextCommand : ICommand
     {
-        Action _execute;
+        private TicketMessage message;
         public event EventHandler CanExecuteChanged;
 
-        public NextCommand(Action nextFunction)
+        public NextCommand(out TicketMessage nextFunction)
         {
-            _execute = nextFunction;
+            nextFunction = TicketServiceClient.Instance.GetTicketMessage();
         }
         public bool CanExecute(object parameter)
         {
@@ -19,7 +20,7 @@ namespace ServiceTicketClientApp.Command
 
         public void Execute(object parameter)
         {
-            _execute();
+            message = TicketServiceClient.Instance.GetTicketMessage();
         }
     }
 }
