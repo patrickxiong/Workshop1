@@ -160,6 +160,9 @@ namespace Communication
         public TicketMessage GetTicketMessage()
         {
             TicketMessage msg;
+
+            return new TicketMessage { TicketId="777", CampaignName="Test", TicketType="NEW", UserId= "User1" };
+
             while (!concurrentQueque.TryDequeue(out msg)) ;
             return msg;
         }
