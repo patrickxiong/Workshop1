@@ -98,17 +98,33 @@ namespace ServiceTicketClientApp.ViewModels
         public MainWindowViewModel()
         {
             _serviceClient = TicketServiceClient.Instance;
+            _serviceClient.NewTicketEventHandler += eventArgs =>
+            {
+                TicketMessage newTicket = eventArgs.Ticket;
+            };
+            _serviceClient.TicketServiceBreakEventHandler += eventArgs =>
+            {
+                //TODO
+                _serviceClient.Disconnect();
+            };
+            _serviceClient.TicketServiceTransactionCompleteEventHandler += eventArgs =>
+            {
+                //
+                _serviceClient.Disconnect();
+            };
             RequestBreak = new RelayCommand(async command => _serviceClient.RequestBreak());
             RequestNext = new RelayCommand(async command => await SetMessage());
         }
 
         public async Task SetMessage()
         { 
-            var message = TicketServiceClient.Instance.GetTicketMessage();
-            Type = message.TicketType;
-            TicketId = message.TicketId;
-            UserId = message.UserId;
-            Campaign = message.CampaignName;
+            _serviceClient.Ready();
+
+            //var message = TicketServiceClient.Instance.GetTicketMessage();
+            //Type = message.TicketType;
+            //TicketId = message.TicketId;
+            //UserId = message.UserId;
+            //Campaign = message.CampaignName;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

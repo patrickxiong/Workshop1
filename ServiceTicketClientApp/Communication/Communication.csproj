@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="FakeTicketServiceClient.cs" />
     <Compile Include="ITicketServiceClient.cs" />
+    <Compile Include="NewTicketEventArgs.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="TicketMessage.cs" />
     <Compile Include="NetworkConfiguration.cs" />

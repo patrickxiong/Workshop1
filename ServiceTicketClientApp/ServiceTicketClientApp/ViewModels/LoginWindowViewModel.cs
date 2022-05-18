@@ -24,7 +24,8 @@ namespace ServiceTicketClientApp.ViewModels
 
         public LoginWindowViewModel()
         {
-            _serviceClient = new FakeTicketServiceClient();
+            //_serviceClient = new FakeTicketServiceClient();
+            _serviceClient = TicketServiceClient.Instance;
             LoginCommand = new RelayCommand(e => Login());
             LogoutCommand= new RelayCommand(e => Logout());
             ReadyCommand = new RelayCommand(e => Ready());
@@ -82,16 +83,24 @@ namespace ServiceTicketClientApp.ViewModels
 
         public void Login()
         {
-            _serviceClient.Connect(
-                new NetworkConfiguration()
-                {
-                    Server = "172.25.12.79",
-                    Port = 6502,
-                    User = UserId,
-                    Password = Password,
-                    Extension = Extension
-                });
-            IsLoggedIn = true;
+            try
+            {
+                _serviceClient.Connect(
+                    new NetworkConfiguration()
+                    {
+                        Server = "172.25.12.79",
+                        Port = 6502,
+                        User = UserId,
+                        Password = Password,
+                        Extension = Extension
+                    });
+                IsLoggedIn = true;
+            }
+            catch (Exception e)
+            {
+                // logging
+            }
+            
         }
 
         public void Logout()
@@ -102,7 +111,15 @@ namespace ServiceTicketClientApp.ViewModels
 
         public void Ready()
         {
-            _serviceClient.Ready();
+            try
+            {
+                _serviceClient.Ready();
+            }
+            catch (Exception e)
+            {
+                //logging
+            }
+            
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
