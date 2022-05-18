@@ -64,6 +64,7 @@
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVisConverter}}">
             <Button>Ready</Button>
+            <Button Click="Button_Click">Login</Button>
             <Button>Logout</Button>
         </StackPanel>
     </Grid>
