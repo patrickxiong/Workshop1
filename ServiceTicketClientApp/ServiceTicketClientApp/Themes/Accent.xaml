@@ -13,4 +13,16 @@
         x:Key="ButtonMouseOverBackgroundBrush"
         Opacity="0.6"
         Color="{DynamicResource AccentColor}" />
+    <CornerRadius
+        x:Key="ComboBoxToggleButtonCornerRadius"
+        BottomLeft="4"
+        BottomRight="4"
+        TopLeft="4"
+        TopRight="4" />
+    <CornerRadius
+        x:Key="ButtonCornerRadius"
+        BottomLeft="5"
+        BottomRight="5"
+        TopLeft="5"
+        TopRight="5" />
 </ResourceDictionary>
