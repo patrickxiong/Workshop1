@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Authentication;
@@ -8,12 +9,15 @@ using System.Web.UI;
 
 namespace Communication
 {
-    public class TicketServiceClient
+    public class TicketServiceClient: ITicketServiceClient
     {
         private static readonly object Lock = new object();
         private static TicketServiceClient _instance;
+        private ConcurrentQueue<TicketMessage> concurrentQueque = new ConcurrentQueue<TicketMessage>();
 
         private RemoteClientProxy _connectionProxy;
+
+        public string User { get; set; }
 
         private TicketServiceClient()
         {
@@ -97,6 +101,8 @@ namespace Communication
             {
                 throw new InvalidCredentialException($"The user {user} failed to login.");
             }
+
+            User = user;
         }
 
         
@@ -130,6 +136,28 @@ namespace Communication
         {
             // request a break from server
             _connectionProxy.RequestBreak();
+        }
+
+        public void Ready()
+        {
+            Task.Run(() =>
+            {
+                // send get ready
+                var msg = Parser.GetReadyCommand(User);
+                var resp = _connectionProxy.Send(msg, 2);
+
+                // get tickets
+                //string[] data = _connectionProxy.WaitForIncomingData();
+            });
+
+
+        }
+
+        public TicketMessage GetTicketMessage()
+        {
+            TicketMessage msg;
+            while (!concurrentQueque.TryDequeue(out msg)) ;
+            return msg;
         }
     }
 }
