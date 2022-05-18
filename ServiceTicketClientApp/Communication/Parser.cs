@@ -8,6 +8,8 @@ namespace Communication
 {
     public class Parser
     {
+        public static int AENumber = 7687342;
+
         public static TicketMessage GetTicket(string message)
         {
             TicketMessage ticket = null;
@@ -61,7 +63,7 @@ namespace Communication
 
         public static string GetLoginCommand(string user)
         {
-            return $"AL\\AN{user}\\AD{user}\\AE1234\\CNTickets\\TDdefault";
+            return $"AL\\AN{user}\\CNTickets\\AD{user}\\AE{AENumber}\\NU";
         }
 
         public static bool LoginSuccessful(string message)
