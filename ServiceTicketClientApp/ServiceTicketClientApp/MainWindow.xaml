@@ -77,12 +77,9 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock >Outcome</TextBlock>
-                    <ComboBox>
-                        <ComboBoxItem>test</ComboBoxItem>
-                        <ComboBoxItem>test</ComboBoxItem>
-                        <ComboBoxItem>test</ComboBoxItem>
-                        <ComboBoxItem>test</ComboBoxItem>
-                    </ComboBox>
+                    <ComboBox ItemsSource="{Binding LayoutTypes}" 
+                            SelectedItem="{Binding SelectedLayoutType}" />
+
                 </StackPanel>
                 <Border
                     Height="Auto"

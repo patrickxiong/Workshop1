@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,8 @@ namespace Communication
         private static TicketServiceClient _instance;
 
         private RemoteClientProxy _connectionProxy;
+
+        private ConcurrentQueue<TicketMessage> concurrentQueque = new ConcurrentQueue<TicketMessage>();
 
         private TicketServiceClient()
         {
@@ -60,14 +63,14 @@ namespace Communication
 
         public void Disconnect()
         {
-            
+
         }
 
-        
+
 
         private void ValidateUser(string user, string password, string extension)
         {
-            var msg=Parser.GetValidateUserCommand(user);
+            var msg = Parser.GetValidateUserCommand(user);
 
             //string resp = _connectionProxy.Send(msg);
             string resp = _connectionProxy.Send(msg);
@@ -80,20 +83,40 @@ namespace Communication
         private void Login(string user, string password, string extension)
         {
             var msg = Parser.GetLoginCommand(user);
-            
+
             string resp = _connectionProxy.Send(msg);
 
             if (!Parser.LoginSuccessful(resp))
                 throw new Exception("Login failed!");
         }
 
-        
+        public void Ready(string user)
+        {
+            Task.Run(() =>
+            {
+                // send get ready
+                var msg = Parser.GetReadyCommand(user);
+                string resp = _connectionProxy.Send(msg, 2);
 
-        public void GetTicketsAsync(string user,AsyncCallback ticketReady)
+                // get tickets
+                //string[] data = _connectionProxy.WaitForIncomingData();
+            });
+
+
+        }
+
+        public TicketMessage GetTicketMessage()
+        {
+            TicketMessage msg;
+            while(!concurrentQueque.TryDequeue(out msg));
+            return msg;
+        }
+
+        public void GetTicketsAsync(string user, AsyncCallback ticketReady)
         {
             // send get ready
             var msg = Parser.GetReadyCommand(user);
-            string resp = _connectionProxy.Send(msg,2);
+            string resp = _connectionProxy.Send(msg, 2);
 
 
 
