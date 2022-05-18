@@ -67,6 +67,7 @@
       <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="LoginWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -131,10 +132,6 @@
     <ProjectReference Include="..\Model\Model.csproj">
       <Project>{b1ad69ce-13d2-4517-a781-c4b4c979f810}</Project>
       <Name>Model</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ViewModel\ViewModel.csproj">
-      <Project>{8609d3f9-aafe-417f-b6cd-251dd1cca5e4}</Project>
-      <Name>ViewModel</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
