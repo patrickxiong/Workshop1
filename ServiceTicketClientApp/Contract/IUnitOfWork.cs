@@ -8,6 +8,7 @@
     {
         IRepository<Tickets> Tickets { get; }
         IRepository<Outcomes> Outcomes { get; }
+        IRepository<Result> Results { get; }
         void Commit();
     }
 }

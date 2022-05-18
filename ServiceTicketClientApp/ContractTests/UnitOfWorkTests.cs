@@ -16,7 +16,7 @@ namespace Contract.Tests
         {
             var target = new UnitOfWork(new TicketContext());
 
-            var t=target.Tickets.GetByID(777);
+            var t = target.Tickets.GetByID(777);
 
         }
         [TestMethod()]
@@ -31,7 +31,21 @@ namespace Contract.Tests
         [TestMethod()]
         public void CommitTest()
         {
-            Assert.Fail();
+            var target = new UnitOfWork(new TicketContext());
+
+            var r = new Model.Result
+            {
+                Ticket_ID = 777,
+                Contact_GUID = "DA3BFC7DFC3748448819AE46505D97F1,",
+                InsertingCompaign = "test compagin",
+                InsertingUserID = "user1",
+                OutcomeCode = 102,
+                TicketTypeCode = "NEW",
+                DateTimeStamp = DateTime.Now
+            };
+
+            target.Results.Insert(r);
+            target.Commit();
         }
     }
 }

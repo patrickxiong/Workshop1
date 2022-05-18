@@ -33,11 +33,15 @@ namespace Contract
             modelBuilder.Entity<Outcomes>()
                 .HasKey(o=>o.OutcomeCode)
                 .ToTable("Outcomes");
-            //            modelBuilder.Entity<Teacher>()
-            //                .MapToStoredProcedures();
+
+            modelBuilder.Entity<Result>()
+                .HasKey(r=>r.Result_ID)
+                
+                .ToTable("ResultTeam1");
         }
 
         public DbSet<Tickets> Tickets { get; set; }
         public DbSet<Outcomes> Outcomes { get; set; }
+        public DbSet<Result> Results { get; set; }  
     }
 }
