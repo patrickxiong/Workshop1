@@ -11,3 +11,4 @@ obj/
 *.xml
 ServiceTicketClientApp/Contract/Contract.csproj.rej
 ServiceTicketClientApp/.vs/ServiceTicketClientApp/v16/.suo
+*.user

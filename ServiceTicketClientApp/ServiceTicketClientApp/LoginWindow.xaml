@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:vm="clr-namespace:ServiceTicketClientApp.ViewModels"
+        xmlns:converters="clr-namespace:Aristocrat.Monaco.UI.Common.Converters"
         mc:Ignorable="d"
         Style="{StaticResource StyledWindow}"
         Title="Login" Height="450" Width="800">
@@ -19,6 +20,7 @@
         <Style TargetType="TextBox" BasedOn="{StaticResource {x:Type TextBox}}">
             <Setter Property="Width" Value="160"/>
         </Style>
+        <converters:BoolToVisibilityConverter x:Key="sdafd"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:LoginWindowViewModel/>
