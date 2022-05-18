@@ -9,6 +9,6 @@ namespace Model
     public  class Departments
     {
         public int Department_ID { get; set; }
-        public string Departmnet_Name { get; set; } 
+        public string Department_Name { get; set; } 
     }
 }
