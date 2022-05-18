@@ -1,5 +1,5 @@
-﻿using System.Data.Entity;
-using Model;
+﻿using Model;
+using System.Data.Entity;
 
 namespace Contract
 {
@@ -42,7 +42,6 @@ namespace Contract
 
         public DbSet<Tickets> Tickets { get; set; }
         public DbSet<Outcomes> Outcomes { get; set; }
-        public DbSet<Result> Results { get; set; }
-        public DbSet<TicketTypes> TicketTypes { get; set; }
+        public DbSet<Result> Results { get; set; }  
     }
 }

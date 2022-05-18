@@ -1,6 +1,13 @@
 ﻿namespace Contract
 {
     using Model;
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Text;
+    using System.Threading.Tasks;
 
     public class UnitOfWork : IUnitOfWork
     {
@@ -9,7 +16,6 @@
         private BaseRepository<Tickets> _tickets;
         private BaseRepository<Outcomes> _outcomes;
         private BaseRepository<Result> _results;
-        private BaseRepository<TicketTypes> _ticketTypes;
 
         public UnitOfWork(TicketContext dbContext)
         {
@@ -41,15 +47,6 @@
                     (_results = new BaseRepository<Result>(_dbContext));
             }
         }
-
-        public IRepository<TicketTypes> TicketTypes
-        {
-            get
-            {
-                return _ticketTypes ?? (_ticketTypes = new BaseRepository<TicketTypes>(_dbContext));
-            }
-        }
-
         public void Commit()
         {
             _dbContext.SaveChanges();

@@ -70,8 +70,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Command\BreakCommand.cs" />
-    <Compile Include="Command\NextCommand.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Command\RelayCommand.cs" />
     <Compile Include="LoginWindow.xaml.cs">
@@ -81,7 +79,6 @@
       <DependentUpon>Controls.xaml</DependentUpon>
     </Compile>
     <Compile Include="UnitOfWorkTests.cs" />
-    <Compile Include="ViewModels\TicketViewModel.cs" />
     <Compile Include="ViewModels\LoginWindowViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Page Include="LoginWindow.xaml">

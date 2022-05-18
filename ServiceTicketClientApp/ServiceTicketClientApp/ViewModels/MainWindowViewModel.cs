@@ -1,5 +1,4 @@
-﻿using ServiceTicketClientApp.Command;
-using System;
+﻿using System;
 using System.ComponentModel;
 using System.Windows.Input;
 
@@ -87,6 +86,46 @@ namespace ServiceTicketClientApp.ViewModels
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
+        }
+    }
+
+    public class BreakCommand : ICommand
+    {
+        Action _execute;
+        public event EventHandler CanExecuteChanged;
+
+        public BreakCommand(Action breakFunction)
+        {
+            _execute = breakFunction;
+        }
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute();
+        }
+    }
+
+    public class NextCommand : ICommand
+    {
+        Action _execute;
+        public event EventHandler CanExecuteChanged;
+
+        public NextCommand(Action breakFunction)
+        {
+            _execute = breakFunction;
+        }
+        public bool CanExecute(object parameter)
+        {
+            return true;
+        }
+
+        public void Execute(object parameter)
+        {
+            _execute();
         }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Model;
 
 namespace Contract.Tests
@@ -13,15 +12,6 @@ namespace Contract.Tests
             var t = target.Tickets.GetByID(777);
             return t;
         }
-
-        public IEnumerable<TicketTypes> GetTicketType()
-        {
-            var target = new UnitOfWork(new  TicketContext());
-
-            var t = target.TicketTypes.Get();
-            return t;
-        }
-
         public void GetOutComesTest()
         {
             var target = new UnitOfWork(new TicketContext());
