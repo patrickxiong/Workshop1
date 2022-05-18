@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace ServiceTicketClientApp.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
 
         private ITicketServiceClient _serviceClient;

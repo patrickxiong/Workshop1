@@ -25,6 +25,7 @@
         </Style>
         <converters:BoolToVisibilityConverter x:Key="BoolToVisConverter" TrueValue="Visible" FalseValue="Hidden"/>
         <converters:BoolToVisibilityConverter x:Key="BoolToHiddenConverter" TrueValue="Hidden" FalseValue="Visible"/>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
     </Window.Resources>
     <Window.DataContext>
         <vm:LoginWindowViewModel/>
@@ -48,16 +49,36 @@
             </Grid.ColumnDefinitions>
 
             <TextBlock Grid.Row="0" Grid.Column="0">User Id</TextBlock>
-            <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox 
+                Grid.Row="0"
+                Grid.Column="1" 
+                IsEnabled="{Binding IsLoggedIn, Converter={StaticResource InverseBoolConverter}}"
+                Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
 
             <TextBlock Grid.Row="1" Grid.Column="0">Password</TextBlock>
-            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox 
+                Grid.Row="1" 
+                Grid.Column="1" 
+                IsEnabled="{Binding IsLoggedIn, Converter={StaticResource InverseBoolConverter}}"
+                Text="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
 
             <TextBlock Grid.Row="2" Grid.Column="0">Extension</TextBlock>
-            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Extension, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox 
+                Grid.Row="2" 
+                Grid.Column="1"
+                IsEnabled="{Binding IsLoggedIn, Converter={StaticResource InverseBoolConverter}}"
+                Text="{Binding Path=Extension, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
 
             <TextBlock Grid.Row="3" Grid.Column="0">Campaign</TextBlock>
-            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Campaign, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            <TextBox 
+                Grid.Row="3" 
+                Grid.Column="1" 
+                IsEnabled="{Binding IsLoggedIn, Converter={StaticResource InverseBoolConverter}}"
+                Text="{Binding Path=Campaign, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
         </Grid>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToHiddenConverter}}">
@@ -65,7 +86,7 @@
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVisConverter}}">
-            <Button Command="{Binding ReadyCommand}">Ready</Button>
+            <Button Click="Button_Click">Ready</Button>
             <Button Command="{Binding LogoutCommand}">Logout</Button>
         </StackPanel>
     </Grid>

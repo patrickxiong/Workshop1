@@ -9,7 +9,7 @@ using ServiceTicketClientApp.Command;
 
 namespace ServiceTicketClientApp.ViewModels
 {
-    public class LoginWindowViewModel
+    public class LoginWindowViewModel : INotifyPropertyChanged
     {
         private bool _isLoggedIn;
         private string _password;
