@@ -9,7 +9,7 @@ using System.Web.UI;
 
 namespace Communication
 {
-    public class TicketServiceClient: ITicketServiceClient
+    public class TicketServiceClient : ITicketServiceClient
     {
         private static readonly object Lock = new object();
         private static TicketServiceClient _instance;
@@ -66,10 +66,10 @@ namespace Communication
 
         public void Disconnect()
         {
-            
+
         }
 
-        
+
 
         private void ValidateUser(string user, string password, string extension)
         {
@@ -91,7 +91,6 @@ namespace Communication
 
         private void Login(string user, string password, string extension)
         {
-
             string reqMsg = Parser.GetLoginCommand(user);
 
             var resp = _connectionProxy.Send(reqMsg);
@@ -105,26 +104,6 @@ namespace Communication
             User = user;
         }
 
-        
-
-        public void GetTicketsAsync(string user,AsyncCallback ticketReady)
-        {
-            // send get ready
-            var msg = Parser.GetReadyCommand(user);
-            var resp = _connectionProxy.Send(msg,2);
-
-
-
-            //_connectionProxy.GetReady();
-
-            Task.Run(() =>
-            {
-                // get tickets
-                //string[] data = _connectionProxy.WaitForIncomingData();
-            });
-
-            // ticket callback
-        }
 
         public void CompleteTransaction(int OutcomeCode)
         {
@@ -148,13 +127,19 @@ namespace Communication
             {
                 // send get ready
                 var msg = Parser.GetReadyCommand(User);
-                var resp = _connectionProxy.Send(msg, 2);
+                var resp = _connectionProxy.Send(msg, 0);
 
-                // get tickets
-                //string[] data = _connectionProxy.WaitForIncomingData();
+                if (!Parser.IsReadySuccessful(resp.Take(1).First()))
+                    throw new Exception("Ready failed!");
+
+                if (!Parser.IsUserRecongnizedReady(resp.Take(1).First()))
+                    throw new Exception("User not recognized as ready!");
+
+                foreach(var m in resp)
+                {
+                    concurrentQueque.Enqueue(Parser.GetTicket(m));
+                }
             });
-
-
         }
 
         public TicketMessage GetTicketMessage()
