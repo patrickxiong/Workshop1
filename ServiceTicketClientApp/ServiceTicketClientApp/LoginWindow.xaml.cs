@@ -17,6 +17,7 @@ namespace ServiceTicketClientApp
         {
             this.Hide();
             var dd = new MainWindow();
+            dd.LoginWindowPage = this;
             dd.DataContext = new MainWindowViewModel();
             dd.ShowDialog();
         }
