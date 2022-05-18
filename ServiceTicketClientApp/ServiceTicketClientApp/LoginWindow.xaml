@@ -51,22 +51,22 @@
             <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
             <TextBlock Grid.Row="1" Grid.Column="0">Password</TextBlock>
-            <TextBox Grid.Row="1" Grid.Column="1"></TextBox>
+            <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=Password, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
             <TextBlock Grid.Row="2" Grid.Column="0">Extension</TextBlock>
-            <TextBox Grid.Row="2" Grid.Column="1"></TextBox>
+            <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Extension, UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
             <TextBlock Grid.Row="3" Grid.Column="0">Campaign</TextBlock>
-            <TextBox Grid.Row="3" Grid.Column="1"></TextBox>
+            <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Campaign, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </Grid>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToHiddenConverter}}">
-            <Button>Login</Button>
+            <Button Command="{Binding LoginCommand}">Login</Button>
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVisConverter}}">
-            <Button>Ready</Button>
-            <Button>Logout</Button>
+            <Button Command="{Binding ReadyCommand}">Ready</Button>
+            <Button Command="{Binding LogoutCommand}">Logout</Button>
         </StackPanel>
     </Grid>
 </Window>
