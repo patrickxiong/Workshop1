@@ -3,12 +3,13 @@ using ServiceTicketClientApp.Command;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
 namespace ServiceTicketClientApp.ViewModels
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : INotifyPropertyChanged
     {
 
         private ITicketServiceClient _serviceClient;
@@ -97,11 +98,11 @@ namespace ServiceTicketClientApp.ViewModels
         public MainWindowViewModel()
         {
             _serviceClient = TicketServiceClient.Instance;
-            RequestBreak = new RelayCommand(command => _serviceClient.RequestBreak());
-            RequestNext = new RelayCommand(command => SetMessage());
+            RequestBreak = new RelayCommand(async command => _serviceClient.RequestBreak());
+            RequestNext = new RelayCommand(async command => await SetMessage());
         }
 
-        public void SetMessage()
+        public async Task SetMessage()
         { 
             var message = TicketServiceClient.Instance.GetTicketMessage();
             Type = message.TicketType;
