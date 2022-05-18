@@ -12,13 +12,5 @@ namespace ServiceTicketClientApp
         {
             InitializeComponent();
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-            var dd = new MainWindow();
-            dd.DataContext = new MainWindowViewModel();
-            dd.ShowDialog();
-        }
     }
 }

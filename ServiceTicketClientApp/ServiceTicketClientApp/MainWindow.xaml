@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServiceTicketClientApp"
+        xmlns:vm="clr-namespace:ServiceTicketClientApp.ViewModels"
         mc:Ignorable="d"
         Style="{StaticResource StyledWindow}"
         Title="MainWindow" Height="600" Width="600">
@@ -20,16 +21,19 @@
             <Setter Property="Width" Value="160"/>
         </Style>
     </Window.Resources>
+    <Window.DataContext>
+        <vm:MainWindowViewModel/>
+    </Window.DataContext>
     <StackPanel>
         <GroupBox Padding="20">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Campaign</TextBlock>
-                    <TextBox  IsReadOnly="False">Campaign</TextBox>
+                    <TextBox  IsReadOnly="False" Text="{Binding  Path=Campaign, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock >User Id</TextBlock>
-                    <TextBox IsReadOnly="False">UserID</TextBox>
+                    <TextBox Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <Border
                     Height="Auto"
@@ -48,7 +52,7 @@
                             </VisualBrush.Visual>
                         </VisualBrush>
                     </Border.BorderBrush>
-                    <Button Width="120">Request Break</Button>
+                    <Button Width="120" Command="{Binding RequestBreak}">Request Break</Button>
                 </Border>
             </StackPanel>
         </GroupBox>
@@ -65,11 +69,11 @@
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Name</TextBlock>
-                    <TextBox>Name</TextBox>
+                    <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Email</TextBlock>
-                    <TextBox>Email</TextBox>
+                    <TextBox Text="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock >Outcome</TextBlock>
@@ -97,7 +101,7 @@
                             </VisualBrush.Visual>
                         </VisualBrush>
                     </Border.BorderBrush>
-                    <Button Width="120">Next</Button>
+                    <Button Width="120" Command="{Binding RequestNext}" >Next</Button>
                 </Border>
             </StackPanel>
         </GroupBox>
