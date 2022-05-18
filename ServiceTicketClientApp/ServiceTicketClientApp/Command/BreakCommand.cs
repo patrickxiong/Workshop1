@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace ServiceTicketClientApp.Command
 {
-    public class BreakCommand : ICommand
+    public class BreakCommand : ICommand 
     {
         Action _execute;
         public event EventHandler CanExecuteChanged;
