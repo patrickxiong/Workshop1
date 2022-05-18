@@ -12,7 +12,7 @@ namespace ServiceTicketClientApp.ViewModels
     {
 
         private ITicketServiceClient _serviceClient;
-        private string _campaign = "This";
+        private string _campaign;
         private string _userId;
         private string _ticketId;
         private string _type;
@@ -21,6 +21,7 @@ namespace ServiceTicketClientApp.ViewModels
         private string _selectedOutcome;
         private List<string> _outcomeSource = new List<string> { "1", "2", "3" };
         public ICommand RequestBreak { get; }
+        public ICommand RequestNext { get; }
 
         public string SelectedOutcome { 
             get
@@ -97,16 +98,18 @@ namespace ServiceTicketClientApp.ViewModels
         {
             _serviceClient = TicketServiceClient.Instance;
             RequestBreak = new RelayCommand(command => _serviceClient.RequestBreak());
+            RequestNext = new RelayCommand(command => SetMessage());
         }
 
-        public void RequestNext(object sender, RoutedEventArgs e)
+        public void SetMessage()
         { 
             var message = TicketServiceClient.Instance.GetTicketMessage();
             Type = message.TicketType;
             TicketId = message.TicketId;
             UserId = message.UserId;
             Campaign = message.CampaignName;
-        }   
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         public void RaisePropertyChanged(string propertyName)
         {

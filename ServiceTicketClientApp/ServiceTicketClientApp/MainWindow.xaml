@@ -26,11 +26,11 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Campaign</TextBlock>
-                    <TextBox  IsReadOnly="False" Text="{Binding  Path=Campaign, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <TextBox IsReadOnly="True" Text="{Binding  Path=Campaign, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock >User Id</TextBlock>
-                    <TextBox Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <TextBox IsReadOnly="True" Text="{Binding  Path=UserId, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <Border
                     Height="Auto"
@@ -57,24 +57,24 @@
             <StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Ticket Id</TextBlock>
-                    <TextBox TabIndex="0" Text="{Binding Path=TicketId, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <TextBox TabIndex="0" IsReadOnly="True" Text="{Binding Path=TicketId, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Type</TextBlock>
-                    <TextBox Text="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <TextBox IsReadOnly="True" Text="{Binding Path=Type, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                     <TextBlock Margin="10 0 0 0 ">Type Description</TextBlock>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Name</TextBlock>
-                    <TextBox Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <TextBox IsReadOnly="True" Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
                     <TextBlock >Email</TextBlock>
-                    <TextBox Text="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
+                    <TextBox IsReadOnly="True" Text="{Binding Path=Email, UpdateSourceTrigger=PropertyChanged}" ></TextBox>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
                     <TextBlock >Outcome</TextBlock>
-                    <ComboBox ItemsSource="{Binding OutcomeSource}" 
+                    <ComboBox IsReadOnly="True" ItemsSource="{Binding OutcomeSource}" 
                             SelectedItem="{Binding SelectedOutcome}" />
 
                 </StackPanel>
@@ -95,7 +95,7 @@
                             </VisualBrush.Visual>
                         </VisualBrush>
                     </Border.BorderBrush>
-                    <Button Width="120" Click="{Binding RequestNext}" >Next</Button>
+                    <Button Width="120" Command="{ Binding RequestNext }">Next</Button>
                 </Border>
             </StackPanel>
         </GroupBox>

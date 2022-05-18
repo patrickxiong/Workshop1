@@ -61,11 +61,11 @@
         </Grid>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToHiddenConverter}}">
-            <Button Command="{Binding LoginCommand}">Login</Button>
+            <Button Click="Button_Click">Login</Button>
         </StackPanel>
 
         <StackPanel Grid.Column="1" VerticalAlignment="Center" Visibility="{Binding IsLoggedIn, Converter={StaticResource BoolToVisConverter}}">
-            <Button Command="{Binding ReadyCommand}">Ready</Button>
+            <Button Command="{Binding ReadyCommand}" Click="Button_Click">Ready</Button>
             <Button Command="{Binding LogoutCommand}">Logout</Button>
         </StackPanel>
     </Grid>
