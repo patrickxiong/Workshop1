@@ -5,8 +5,98 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ServiceTicketClientApp"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
-        
-    </Grid>
+        Style="{StaticResource StyledWindow}"
+        Title="MainWindow" Height="600" Width="600">
+    <Window.Resources>
+        <Style TargetType="TextBlock">
+            <Setter Property="Width" Value="100"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Margin" Value="0 20 0 0"/>
+        </Style>
+    </Window.Resources>
+    <StackPanel>
+        <GroupBox Padding="20">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
+                    <TextBlock >Campaign</TextBlock>
+                    <TextBox  IsReadOnly="False">Campaign</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock >User Id</TextBlock>
+                    <TextBox IsReadOnly="False">UserID</TextBox>
+                </StackPanel>
+                <Border
+                    Height="Auto"
+                    Margin="0,20,0,0"
+                    Padding="0,00,0,0"
+                    BorderThickness="0,1,0,0">
+                    <Border.BorderBrush>
+                        <VisualBrush>
+                            <VisualBrush.Visual>
+                                <Rectangle
+                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"
+                                    Stroke="#eee"
+                                    StrokeDashArray="4 2"
+                                    StrokeThickness="1" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Border.BorderBrush>
+                    <Button Width="120">Request Break</Button>
+                </Border>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Margin="0 20 0 0" Padding="20">
+            <StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
+                    <TextBlock >Ticket Id</TextBlock>
+                    <TextBox TabIndex="0">TicketID</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
+                    <TextBlock >Type</TextBlock>
+                    <TextBox>Type</TextBox>
+                    <TextBlock Margin="10 0 0 0 ">Type Description</TextBlock>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
+                    <TextBlock >Name</TextBlock>
+                    <TextBox>Name</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0 0 0 14">
+                    <TextBlock >Email</TextBlock>
+                    <TextBox>Email</TextBox>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock >Outcome</TextBlock>
+                    <ComboBox>
+                        <ComboBoxItem>test</ComboBoxItem>
+                        <ComboBoxItem>test</ComboBoxItem>
+                        <ComboBoxItem>test</ComboBoxItem>
+                        <ComboBoxItem>test</ComboBoxItem>
+                    </ComboBox>
+                </StackPanel>
+                <Border
+                    Height="Auto"
+                    Margin="0,20,0,0"
+                    Padding="0,00,0,0"
+                    BorderThickness="0,1,0,0">
+                    <Border.BorderBrush>
+                        <VisualBrush>
+                            <VisualBrush.Visual>
+                                <Rectangle
+                                    Width="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualWidth}"
+                                    Height="{Binding RelativeSource={RelativeSource AncestorType={x:Type Border}}, Path=ActualHeight}"
+                                    Stroke="#eee"
+                                    StrokeDashArray="4 2"
+                                    StrokeThickness="1" />
+                            </VisualBrush.Visual>
+                        </VisualBrush>
+                    </Border.BorderBrush>
+                    <Button Width="120">Next</Button>
+                </Border>
+            </StackPanel>
+        </GroupBox>
+    </StackPanel>
 </Window>

@@ -1,0 +1,28 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:System="clr-namespace:System;assembly=mscorlib">
+    <Color x:Key="WhiteColor">#FFFFFFFF</Color>
+    <Color x:Key="AccentColor">#4c0bce</Color>
+    <SolidColorBrush x:Key="AccentColorBrush" Color="{StaticResource AccentColor}" />
+    <SolidColorBrush x:Key="FlyoutForegroundBrush" Color="{DynamicResource WhiteColor}" />
+    <SolidColorBrush x:Key="GrayTextBrush" Color="#555" />
+    <SolidColorBrush x:Key="ComboboxItemMouseOverBackgroundBrush" Color="{DynamicResource ComboboxItemMouseOverBackgroundColor}" />
+    <Color x:Key="ComboboxItemMouseOverBackgroundColor">#f8f8f8</Color>
+    <SolidColorBrush
+        x:Key="ButtonMouseOverBackgroundBrush"
+        Opacity="0.6"
+        Color="{DynamicResource AccentColor}" />
+    <CornerRadius
+        x:Key="ComboBoxToggleButtonCornerRadius"
+        BottomLeft="4"
+        BottomRight="4"
+        TopLeft="4"
+        TopRight="4" />
+    <CornerRadius
+        x:Key="ButtonCornerRadius"
+        BottomLeft="5"
+        BottomRight="5"
+        TopLeft="5"
+        TopRight="5" />
+</ResourceDictionary>

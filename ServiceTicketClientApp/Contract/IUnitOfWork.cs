@@ -7,7 +7,8 @@
     public interface IUnitOfWork
     {
         IRepository<Tickets> Tickets { get; }
-        //IRepository<Teacher> Teachers { get; }
+        IRepository<Outcomes> Outcomes { get; }
+        IRepository<Result> Results { get; }
         void Commit();
     }
 }
