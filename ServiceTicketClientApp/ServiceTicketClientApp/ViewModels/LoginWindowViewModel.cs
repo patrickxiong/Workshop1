@@ -1,29 +1,36 @@
-﻿using Model;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace ViewModels
+namespace ServiceTicketClientApp
 {
-    public class LoginPageViewModel
+    public class LoginWindowViewModel
     {
+        public bool LoggedIn => true;
+
         private string _password;
         private string _extension;
         private string _campaign;
         private string _userId;
-        public string UserId 
-        {     
+        public string UserId
+        {
             get
             {
                 return _userId;
             }
-            
+
             set
             {
+                _userId = value;
                 RaisePropertyChanged(nameof(UserId));
-            } 
+            }
         }
 
-        public string Password 
-        { 
+        public string Password
+        {
             get
             {
                 return _password;
@@ -31,13 +38,13 @@ namespace ViewModels
 
             set
             {
+                _password = value;
                 RaisePropertyChanged(Password);
-
             }
         }
 
         public string Extension
-        { 
+        {
             get
             {
                 return _extension;
@@ -45,26 +52,24 @@ namespace ViewModels
 
             set
             {
+                _extension = value;
                 RaisePropertyChanged(Extension);
             }
-        
+
         }
         public string Campaign
-        { 
+        {
             get
             {
                 return _campaign;
             }
             set
             {
+                _campaign = value;
                 RaisePropertyChanged(Campaign);
             }
         }
-        
-        public LoginPageViewModel()
-        {
 
-        }
 
 
         public event PropertyChangedEventHandler PropertyChanged;
