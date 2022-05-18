@@ -1,9 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31410.357
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32210.238
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceTicketClientApp", "ServiceTicketClientApp\ServiceTicketClientApp.csproj", "{8291F357-8F16-42CE-B326-5264615C9410}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contract", "Contract\Contract.csproj", "{0DAB8392-E64B-4CCB-8FC9-E67C033E1368}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{B1AD69CE-13D2-4517-A781-C4B4C979F810}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{8291F357-8F16-42CE-B326-5264615C9410}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8291F357-8F16-42CE-B326-5264615C9410}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8291F357-8F16-42CE-B326-5264615C9410}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0DAB8392-E64B-4CCB-8FC9-E67C033E1368}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0DAB8392-E64B-4CCB-8FC9-E67C033E1368}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0DAB8392-E64B-4CCB-8FC9-E67C033E1368}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0DAB8392-E64B-4CCB-8FC9-E67C033E1368}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1AD69CE-13D2-4517-A781-C4B4C979F810}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1AD69CE-13D2-4517-A781-C4B4C979F810}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1AD69CE-13D2-4517-A781-C4B4C979F810}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1AD69CE-13D2-4517-A781-C4B4C979F810}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
