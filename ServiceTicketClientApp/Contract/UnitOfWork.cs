@@ -14,6 +14,7 @@
 
         private TicketContext _dbContext;
         private BaseRepository<Tickets> _tickets;
+        private BaseRepository<Outcomes> _outcomes;
 
         public UnitOfWork(TicketContext dbContext)
         {
@@ -29,6 +30,14 @@
             }
         }
 
+        public IRepository<Outcomes> Outcomes
+        {
+            get
+            {
+                return _outcomes ??
+                    (_outcomes = new BaseRepository<Outcomes>(_dbContext));
+            }
+        }
         public void Commit()
         {
             _dbContext.SaveChanges();

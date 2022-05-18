@@ -19,6 +19,14 @@ namespace Contract.Tests
             var t=target.Tickets.GetByID(777);
 
         }
+        [TestMethod()]
+        public void GetOutComesTest()
+        {
+            var target = new UnitOfWork(new TicketContext());
+
+            var o = target.Outcomes.Get(null, null);
+
+        }
 
         [TestMethod()]
         public void CommitTest()
