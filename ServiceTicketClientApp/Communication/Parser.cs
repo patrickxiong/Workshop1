@@ -12,29 +12,29 @@ namespace Communication
         {
             TicketMessage ticket = null;
 
-            if (message.Substring(0, 2).Equals("AC"))
+            if (message.Substring(0, 2).Trim().Equals("AC"))
             {
                 ticket = new TicketMessage();
             }
 
             var fields = message.Split('\\');
-            ticket.CampaignName = fields.First(m => m.Substring(0, 2).Equals("CN")).Substring(2);
+            ticket.CampaignName = fields.First(m => m.Substring(0, 2).Trim().Equals("CN")).Substring(2);
 
-            var dataFields = fields.First(f => f.Substring(0, 2).Equals("DT")).Substring(2).Split('|');
+            var dataFields = fields.First(f => f.Substring(0, 2).Trim().Equals("DT")).Substring(2).Split('|');
             foreach (var df in dataFields)
             {
                 var dataItems = df.Split('~');
-                if (dataItems.Length >= 3 && dataItems[0].Equals("Ticket_ID"))
+                if (dataItems.Length >= 3 && dataItems[0].Trim().Equals("Ticket_ID"))
                 {
                     ticket.TicketId = dataItems[2];
                 }
 
-                if (dataItems.Length >= 3 && dataItems[0].Equals("TicketTypeCode"))
+                if (dataItems.Length >= 3 && dataItems[0].Trim().Equals("TicketTypeCode"))
                 {
                     ticket.TicketType = dataItems[2];
                 }
 
-                if (dataItems.Length >= 3 && dataItems[0].Equals("Contact_GUID"))
+                if (dataItems.Length >= 3 && dataItems[0].Trim().Equals("Contact_GUID"))
                 {
                     ticket.UserId = dataItems[2];
                 }
@@ -51,7 +51,7 @@ namespace Communication
         public static bool UserExists(string message)
         {
             var fields = message.Split('\\');
-            return fields.First(f => f.Substring(0, 2).Equals("PG"))[2] == 1;
+            return fields.First(f => f.Substring(0, 2).Trim().Equals("PG"))[2] == '1';
         }
 
         public static string GetLoginCommand(string user)
@@ -61,7 +61,7 @@ namespace Communication
 
         public static bool LoginSuccessful(string message)
         {
-            return (message.Substring(0, 2).Equals("LI")) ;
+            return (message.Substring(0, 2).Trim().Equals("LI")) ;
         }
 
         public static string GetReadyCommand(string user)
@@ -71,12 +71,12 @@ namespace Communication
 
         public static bool IsReadySuccessful(string message)
         {
-            return (message.Substring(0, 2).Equals("NA"));
+            return (message.Substring(0, 2).Trim().Equals("NA"));
         }
 
         public static bool IsUserRecongnizedReady(string message)
         {
-            return (message.Substring(0, 2).Equals("AR"));
+            return (message.Substring(0, 2).Trim().Equals("AR"));
         }
 
         public static string GetTransactionCompleteCommand(string user, int outcome)
@@ -86,7 +86,7 @@ namespace Communication
 
         public static bool TransactionCompleted(string message)
         {
-            return (message.Substring(0, 2).Equals("CE"));
+            return (message.Substring(0, 2).Trim().Equals("CE"));
         }
 
         public static string GetBreakRequestCommand(string user)
@@ -96,7 +96,7 @@ namespace Communication
 
         public static bool BreakGranted(string message)
         {
-            return (message.Substring(0, 2).Equals("AF"));
+            return (message.Substring(0, 2).Trim().Equals("AF"));
         }
     }
 }
