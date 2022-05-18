@@ -5,12 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Communication;
 using ServiceTicketClientApp.Command;
 
 namespace ServiceTicketClientApp.ViewModels
 {
     public class LoginWindowViewModel : INotifyPropertyChanged
     {
+        private ITicketServiceClient _serviceClient;
         private bool _isLoggedIn;
         private string _password;
         private string _extension;
@@ -22,6 +24,7 @@ namespace ServiceTicketClientApp.ViewModels
 
         public LoginWindowViewModel()
         {
+            _serviceClient = new FakeTicketServiceClient();
             LoginCommand = new RelayCommand(e => Login());
             LogoutCommand= new RelayCommand(e => Logout());
             ReadyCommand = new RelayCommand(e => Ready());
@@ -79,17 +82,27 @@ namespace ServiceTicketClientApp.ViewModels
 
         public void Login()
         {
+            _serviceClient.Connect(
+                new NetworkConfiguration()
+                {
+                    Server = "172.25.12.79",
+                    Port = 6502,
+                    User = UserId,
+                    Password = Password,
+                    Extension = Extension
+                });
             IsLoggedIn = true;
         }
 
         public void Logout()
         {
+            _serviceClient.Disconnect();
             IsLoggedIn = false;
         }
 
         public void Ready()
         {
-
+            _serviceClient.Ready();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
