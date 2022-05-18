@@ -12,7 +12,7 @@ namespace ServiceTicketClientApp.ViewModels
     {
 
         private ITicketServiceClient _serviceClient;
-        private string _campaign;
+        private string _campaign = "This";
         private string _userId;
         private string _ticketId;
         private string _type;
@@ -93,16 +93,10 @@ namespace ServiceTicketClientApp.ViewModels
             }
         }
 
-        private void Hello()
-        {
-            Console.Write("Hi");
-        }
         public MainWindowViewModel()
         {
-            Action h = Hello;
             _serviceClient = TicketServiceClient.Instance;
             RequestBreak = new RelayCommand(command => _serviceClient.RequestBreak());
-            TicketMessage message = new TicketMessage();
         }
 
         public void RequestNext(object sender, RoutedEventArgs e)
